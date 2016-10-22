@@ -7,9 +7,16 @@ public class MyFirstProgram {
 	public static void main (String[] args)	{
 		Point p1 = new Point(-1,100);
 		Point p2 = new Point(2, -1);
+		Point p3 = new Point(5, -10);
 
 		System.out.println("Расстояние между двумя точками, вычисленное при помощи функции distance: " + distance(p1, p2));
-		System.out.println("Расстояние между двумя точками, вычисленное при помощи метода класса Point: " + p1.distance(p1, p2));
+
+		System.out.println("Расстояние между двумя точками, вычисленное при помощи метода класса Point: "
+				+ p1.distance(p1, p2));
+		System.out.println("Расстояние между двумя точками, вычисленное при помощи метода класса Point: "
+				+ p1.distance(p2, p3));
+		System.out.println("Расстояние между двумя точками, вычисленное при помощи метода класса Point: "
+				+ p3.distance(new Point(0,0), new Point(0, 5)));
 	}
 
 	public static double distance(Point p1, Point p2){
