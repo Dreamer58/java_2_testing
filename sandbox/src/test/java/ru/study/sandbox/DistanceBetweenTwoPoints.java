@@ -21,4 +21,11 @@ public class DistanceBetweenTwoPoints {
         Assert.assertEquals(p1.distance(p1, p2), 100.0);
     }
 
+    @Test
+    public void distanceToAnotherPoint() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 100);
+        Assert.assertEquals(p1.distance(p2), 100.0);
+    }
+
 }

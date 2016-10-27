@@ -17,6 +17,11 @@ public class MyFirstProgram {
 				+ p1.distance(p2, p3));
 		System.out.println("Расстояние между двумя точками, вычисленное при помощи метода класса Point: "
 				+ p3.distance(new Point(0,0), new Point(0, 5)));
+		System.out.println("Расстояние между точкой p1 и переданной в параметре: "
+				+ p1.distance(p2));
+		System.out.println("Расстояние между точкой p1 и переданной в параметре: "
+				+ p1.distance(p3));
+
 	}
 
 	public static double distance(Point p1, Point p2){
