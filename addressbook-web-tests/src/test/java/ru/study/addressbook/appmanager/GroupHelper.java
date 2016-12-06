@@ -1,7 +1,10 @@
 package ru.study.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.study.addressbook.model.GroupData;
 
 /**
@@ -14,7 +17,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void initGroupCreation() {
-        click(By.name("new"));
+        findElement(By.name("new")).click();
     }
 
     public void fillGroupForm(GroupData groupData) {
@@ -24,21 +27,20 @@ public class GroupHelper extends HelperBase {
     }
 
     public void submitGroupCreation() {
-        click(By.name("submit"));
+        findElement(By.name("submit")).click();
     }
 
     public void returnToGroupPage() {
-        click(By.linkText("group page"));
+        findElement(By.linkText("group page")).click();
     }
 
     public void deleteSelectedGroup() {
-        click(By.name("delete"));
+        findElement(By.name("delete")).click();
     }
 
     public void selectGroup() throws InterruptedException {
-        //прочитал, что способ самый плохой, но остальные найденные не помогли
-        //без задержки тест на удаление проходит успешно, но группа на самом деле не удаляется
-        Thread.sleep(3000);
-        click(By.name("selected[]"));
+        WebDriverWait wait = new WebDriverWait(wd, 10);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("selected[]")));
+        element.click();
     }
 }

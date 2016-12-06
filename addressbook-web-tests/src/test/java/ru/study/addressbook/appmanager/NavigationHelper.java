@@ -1,7 +1,10 @@
 package ru.study.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Dreamer on 27.10.2016.
@@ -13,15 +16,13 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void gotoGroupsPage() throws InterruptedException {
-        //прочитал, что способ самый плохой, но остальные найденные не помогли
-        //без задержки тесты падают, так как клик по ссылке не успевает отработать
-        //а отрабатывают следующие методы
-        Thread.sleep(3000);
-        click(By.linkText("groups"));
+        WebDriverWait wait = new WebDriverWait(wd, 10);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("groups")));
+        element.click();
     }
 
     public void returnToHomePage() {
-        click(By.linkText("home page"));
+        findElement(By.linkText("home page")).click();
     }
 
 }

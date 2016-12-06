@@ -1,25 +1,24 @@
 package ru.study.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.study.addressbook.model.ContactData;
 
 /**
  * Created by Dreamer on 27.10.2016.
  */
 public class ContactHelper extends HelperBase{
-    private FirefoxDriver wd;
-
     public ContactHelper(FirefoxDriver wd) {
         super(wd);
     }
 
     public void initialCreateContact() throws InterruptedException {
-        //прочитал, что способ самый плохой, но остальные найденные не помогли
-        //без задержки тесты падают, так как клик по ссылке не успевает отработать
-        //а отрабатывают следующие методы
-        Thread.sleep(3000);
-        click(By.linkText("add new"));
+        WebDriverWait wait = new WebDriverWait(wd, 10);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("add new")));
+        element.click();
     }
 
     public void fillContactForm(ContactData contactData) {
@@ -38,6 +37,6 @@ public class ContactHelper extends HelperBase{
     }
 
     public void submitCreateContact() {
-        click(By.xpath("//div[@id='content']/form/input[21]"));
+        findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 }
