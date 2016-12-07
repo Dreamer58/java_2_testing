@@ -1,6 +1,7 @@
 package ru.study.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +12,7 @@ import ru.study.addressbook.model.ContactData;
  * Created by Dreamer on 27.10.2016.
  */
 public class ContactHelper extends HelperBase{
-    public ContactHelper(FirefoxDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
