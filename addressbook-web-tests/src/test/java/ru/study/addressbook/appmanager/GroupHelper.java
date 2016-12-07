@@ -17,7 +17,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void initGroupCreation() {
-        findElement(By.name("new")).click();
+        click(By.name("new"));
     }
 
     public void fillGroupForm(GroupData groupData) {
@@ -27,20 +27,28 @@ public class GroupHelper extends HelperBase {
     }
 
     public void submitGroupCreation() {
-        findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 
     public void returnToGroupPage() {
-        findElement(By.linkText("group page")).click();
+        click(By.linkText("group page"));
     }
 
     public void deleteSelectedGroup() {
-        findElement(By.name("delete")).click();
+        click(By.name("delete"));
     }
 
     public void selectGroup() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(wd, 10);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("selected[]")));
         element.click();
+    }
+
+    public void initGroupModification() {
+        click(By.name("edit"));
+    }
+
+    public void submitGroupModification() {
+        click(By.name("update"));
     }
 }

@@ -22,6 +22,10 @@ public class HelperBase {
         element.sendKeys(text);
     }
 
+    protected void click(By locator) {
+        findElement(locator).click();
+    }
+
     protected WebElement findElement(By locator) {
         return wd.findElement(locator);
     }
