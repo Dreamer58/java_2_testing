@@ -2,10 +2,10 @@ package ru.study.addressbook.tests;
 
 import org.testng.annotations.Test;
 
-public class GroupDeleteTests extends TestBase {
+public class GroupDeletionTests extends TestBase {
 
     @Test
-    public void testGroupDelete() throws InterruptedException {
+    public void testGroupDeletion() throws InterruptedException {
         app.getNavigationHelper().gotoGroupsPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroup();

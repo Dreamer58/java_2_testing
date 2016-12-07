@@ -30,6 +30,10 @@ public class HelperBase {
         return wd.findElement(locator);
     }
 
+    protected void alertAccept(){
+        wd.switchTo().alert().accept();
+    }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
