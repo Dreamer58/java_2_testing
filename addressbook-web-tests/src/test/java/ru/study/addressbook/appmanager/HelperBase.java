@@ -1,9 +1,6 @@
 package ru.study.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
@@ -17,10 +14,16 @@ public class HelperBase {
     }
 
     protected void type(By locator, String text) {
-        WebElement element = findElement(locator);
-        element.click();
-        element.clear();
-        element.sendKeys(text);
+        if (text != null) {
+            WebElement element = findElement(locator);
+            element.click();
+
+            String existingText = element.getAttribute("value");
+            if (!text.equals(existingText)) {
+                element.clear();
+                element.sendKeys(text);
+            }
+        }
     }
 
     protected void click(By locator) {
@@ -44,4 +47,12 @@ public class HelperBase {
         }
     }
 
+    protected boolean isElementPresent(By locator) {
+        try {
+            findElement(locator);
+            return true;
+        }catch(NoSuchElementException ex) {
+            return false;
+        }
+    }
 }

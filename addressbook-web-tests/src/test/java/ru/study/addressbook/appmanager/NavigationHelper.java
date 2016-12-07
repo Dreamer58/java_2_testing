@@ -17,12 +17,20 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void gotoGroupsPage() throws InterruptedException {
+        if (isElementPresent(By.tagName("h1"))
+                && findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.name("new"))){
+            return;
+        }
         WebDriverWait wait = new WebDriverWait(wd, 10);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("groups")));
         element.click();
     }
 
     public void returnToHomePage() {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
         click(By.linkText("home page"));
     }
 
