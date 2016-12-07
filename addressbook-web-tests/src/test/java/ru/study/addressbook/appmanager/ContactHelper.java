@@ -66,4 +66,14 @@ public class ContactHelper extends HelperBase{
     public void submitModifyContact() {
         click(By.name("update"));
     }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactData contact, boolean b) throws InterruptedException {
+        initialCreateContact();
+        fillContactForm(contact, b);
+        submitCreateContact();
+    }
 }

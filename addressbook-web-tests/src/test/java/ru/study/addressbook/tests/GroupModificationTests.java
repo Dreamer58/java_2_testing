@@ -11,6 +11,9 @@ public class GroupModificationTests extends TestBase{
     @Test
     public void testGroupModification() throws InterruptedException {
         app.getNavigationHelper().gotoGroupsPage();
+        if (!app.getGroupHelper().isThereAGroup()) {
+            app.getGroupHelper().createGroup(new GroupData("test10", null, null));
+        }
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initGroupModification();
         app.getGroupHelper().fillGroupForm(new GroupData(null, "test02", "test03"));

@@ -7,9 +7,6 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void testGroupCreation() throws InterruptedException {
         app.getNavigationHelper().gotoGroupsPage();
-        app.getGroupHelper().initGroupCreation();
-        app.getGroupHelper().fillGroupForm(new GroupData("test10", null, null));
-        app.getGroupHelper().submitGroupCreation();
-        app.getGroupHelper().returnToGroupPage();
+        app.getGroupHelper().createGroup(new GroupData("test10", null, null));
     }
 }
