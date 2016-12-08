@@ -8,6 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.study.addressbook.model.GroupData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Dreamer on 27.10.2016.
  */
@@ -64,5 +67,17 @@ public class GroupHelper extends HelperBase {
 
     public int getGroupCount() {
         return findElements(By.name("selected[]")).size();
+    }
+
+    public List<GroupData> getGroupList() {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        List<WebElement> elements = findElements(By.cssSelector("span.group"));
+
+        for(WebElement element: elements) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            GroupData group = new GroupData(id, name, null, null);
+            groups.add(group);        }
+        return groups;
     }
 }

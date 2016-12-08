@@ -4,6 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Created by Dreamer on 07.12.2016.
  */
@@ -15,13 +18,19 @@ public class ContactModificationTests extends TestBase {
                     "title", "company", "1 1 1", "4950101010", "9273826001", "4950101010", "test@mail.ru",
                     "test2@gmail.com", "test10"));
         }
-        int before = app.getContactHelper().getContactCount();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().initialModifyContact();
-        app.getContactHelper().fillContactForm(new ContactData("first name1", "middle2 name", "last6 name", "nickname5",
+        app.getContactHelper().fillContactForm(new ContactData("first name", "middle2 name", "last name", "nickname5",
                 "title1", "company5", "1 1 12", "4950101012", "9273826002", "4950101012", "test_1@mail.ru",
                 "test2_1@gmail.com", null), false);
         app.getContactHelper().submitModifyContact();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size());
+
+        Comparator<? super ContactData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+        before.sort(byId);
+        before.sort(byId);
+        Assert.assertEquals(before, after);
+
     }
 }

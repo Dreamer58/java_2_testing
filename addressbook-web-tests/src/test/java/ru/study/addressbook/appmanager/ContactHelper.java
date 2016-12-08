@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.study.addressbook.model.ContactData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Dreamer on 27.10.2016.
  */
@@ -77,5 +80,20 @@ public class ContactHelper extends HelperBase{
 
     public int getContactCount() {
         return findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = findElements(By.name("entry"));
+
+        for (WebElement element: elements){
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String lastName = element.findElement(By.xpath("//td[2]")).getText();
+            String firstName = element.findElement(By.xpath("//td[3]")).getText();
+            ContactData contact = new ContactData(id, firstName, "", lastName, "", "", "", "", "", "", "", "", "", "");
+            contacts.add(contact);
+        }
+
+        return contacts;
     }
 }
