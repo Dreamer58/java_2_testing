@@ -22,9 +22,7 @@ public class NavigationHelper extends HelperBase{
                 && isElementPresent(By.name("new"))){
             return;
         }
-        WebDriverWait wait = new WebDriverWait(wd, 10);
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("groups")));
-        element.click();
+        click(By.linkText("groups"));
     }
 
     public void returnToHomePage() {

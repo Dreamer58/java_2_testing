@@ -20,9 +20,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void initialCreateContact() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(wd, 10);
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("add new")));
-        element.click();
+        click(By.linkText("add new"));
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
@@ -50,8 +48,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int index) {
+        click(By.name("selected[]"), index);
     }
 
     public void submitDeleteContact() {
@@ -75,5 +73,9 @@ public class ContactHelper extends HelperBase{
         initialCreateContact();
         fillContactForm(contact, true);
         submitCreateContact();
+    }
+
+    public int getContactCount() {
+        return findElements(By.name("selected[]")).size();
     }
 }

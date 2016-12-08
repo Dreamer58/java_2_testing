@@ -39,10 +39,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("delete"));
     }
 
-    public void selectGroup() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(wd, 10);
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("selected[]")));
-        element.click();
+    public void selectGroup(int index) throws InterruptedException {
+        click(By.name("selected[]"), index);
     }
 
     public void initGroupModification() {
@@ -62,5 +60,9 @@ public class GroupHelper extends HelperBase {
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
+    }
+
+    public int getGroupCount() {
+        return findElements(By.name("selected[]")).size();
     }
 }

@@ -3,6 +3,8 @@ package ru.study.addressbook.appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.List;
+
 /**
  * Created by Dreamer on 27.10.2016.
  */
@@ -30,8 +32,17 @@ public class HelperBase {
         findElement(locator).click();
     }
 
+    protected void click(By locator, int index) {
+        findElements(locator).get(index).click();
+    }
+
+
     protected WebElement findElement(By locator) {
         return wd.findElement(locator);
+    }
+
+    protected List<WebElement> findElements(By locator) {
+        return wd.findElements(locator);
     }
 
     protected void alertAccept(){
