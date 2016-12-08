@@ -71,9 +71,9 @@ public class ContactHelper extends HelperBase{
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(ContactData contact, boolean b) throws InterruptedException {
+    public void createContact(ContactData contact) throws InterruptedException {
         initialCreateContact();
-        fillContactForm(contact, b);
+        fillContactForm(contact, true);
         submitCreateContact();
     }
 }
