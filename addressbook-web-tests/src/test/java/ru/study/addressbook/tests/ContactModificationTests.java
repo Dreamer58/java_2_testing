@@ -1,12 +1,9 @@
 package ru.study.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 import ru.study.addressbook.model.Contacts;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,6 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
+        app.goTo().homePageFromAnotherPage();
         if (app.contact().all().size() == 0) {
             ContactData contact = new ContactData()
                     .withFirstname("first name")
@@ -39,7 +37,9 @@ public class ContactModificationTests extends TestBase {
     @Test(enabled = true)
     public void testContactModification() throws InterruptedException {
         Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
+                .withId(modifiedContact.getId())
                 .withFirstname("first name")
                 .withMiddlename("middle2 name")
                 .withLastname("last name")
@@ -52,9 +52,9 @@ public class ContactModificationTests extends TestBase {
                 .withWorkPhone("4950101012")
                 .withEmail1("test_1@mail.ru")
                 .withEmail2("test2_1@gmail.com");
-        app.contact().modifyContact(contact);
+        app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertThat(after, equalTo(before));
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 }

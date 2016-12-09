@@ -17,6 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
+        app.goTo().homePageFromAnotherPage();
         if (app.contact().all().size() == 0) {
             ContactData contact = new ContactData()
                     .withFirstname("first name")
