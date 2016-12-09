@@ -5,8 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dreamer on 07.12.2016.
@@ -14,7 +13,7 @@ import java.util.List;
 public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
-        if (app.contact().list().size() == 0) {
+        if (app.contact().all().size() == 0) {
             ContactData contact = new ContactData()
                     .withFirstname("first name")
                     .withMiddlename("middle name")
@@ -35,7 +34,7 @@ public class ContactModificationTests extends TestBase {
 
     @Test(enabled = true)
     public void testContactModification() throws InterruptedException {
-        List<ContactData> before = app.contact().list();
+        Set<ContactData> before = app.contact().all();
         ContactData contact = new ContactData()
                 .withFirstname("first name")
                 .withMiddlename("middle2 name")
@@ -50,13 +49,9 @@ public class ContactModificationTests extends TestBase {
                 .withEmail1("test_1@mail.ru")
                 .withEmail2("test2_1@gmail.com");
         app.contact().modifyContact(contact);
-        List<ContactData> after = app.contact().list();
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size());
 
-        Comparator<? super ContactData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-        before.sort(byId);
-        before.sort(byId);
         Assert.assertEquals(before, after);
-
     }
 }

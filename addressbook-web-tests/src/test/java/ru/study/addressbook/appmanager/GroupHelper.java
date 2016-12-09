@@ -5,8 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.study.addressbook.model.GroupData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dreamer on 27.10.2016.
@@ -39,8 +40,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("delete"));
     }
 
-    public void selectGroup(int index) throws InterruptedException {
-        click(By.name("selected[]"), index);
+    public void selectGroupById(int id) throws InterruptedException {
+        click(By.cssSelector("input[value='" + id + "']"));
     }
 
     public void initGroupModification() {
@@ -62,16 +63,16 @@ public class GroupHelper extends HelperBase {
         returnToGroupPage();
     }
 
-    public void modify(int index, GroupData group) throws InterruptedException {
-        selectGroup(index);
+    public void modify(GroupData group) throws InterruptedException {
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
         returnToGroupPage();
     }
 
-    public void delete(int index) throws InterruptedException {
-        selectGroup(index);
+    public void delete(GroupData group) throws InterruptedException {
+        selectGroupById(group.getId());
         deleteGroup();
         returnToGroupPage();
     }
@@ -80,8 +81,8 @@ public class GroupHelper extends HelperBase {
         return findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> list() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+    public Set<GroupData> all() {
+        Set<GroupData> groups = new HashSet<GroupData>();
         List<WebElement> elements = findElements(By.cssSelector("span.group"));
 
         for(WebElement element: elements) {
@@ -90,4 +91,5 @@ public class GroupHelper extends HelperBase {
             groups.add(new GroupData().withId(id).withName(name));        }
         return groups;
     }
+
 }

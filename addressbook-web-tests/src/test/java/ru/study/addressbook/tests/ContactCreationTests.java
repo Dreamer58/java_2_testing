@@ -4,14 +4,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
     @Test(enabled = true)
     public void ContactCreationTests() throws InterruptedException {
-        List<ContactData> before = app.contact().list();
+        Set<ContactData> before = app.contact().all();
         ContactData contact = new ContactData()
                 .withFirstname("first name")
                 .withMiddlename("middle name")
@@ -28,14 +27,11 @@ public class ContactCreationTests extends TestBase {
                 .withGroup("test10");
         app.contact().create(contact);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
+        Set<ContactData> after = app.contact().all();
         Assert.assertEquals(after.size(), before.size()+1);
 
-        Comparator<? super ContactData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-        contact.withId(after.stream().max(byId).get().getId());
+        contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         before.add(contact);
-        before.sort(byId);
-        before.sort(byId);
         Assert.assertEquals(before, after);
     }
 

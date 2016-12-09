@@ -1,18 +1,15 @@
 package ru.study.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.study.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dreamer on 27.10.2016.
@@ -51,8 +48,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void selectContact(int index) {
-        click(By.name("selected[]"), index);
+    public void selectContactById(int id) {
+        click(By.cssSelector("input[value='" + id + "']"));
     }
 
     public void submitDeleteContact() {
@@ -84,8 +81,8 @@ public class ContactHelper extends HelperBase{
         submitModifyContact();
     }
 
-    public void delete(int index) {
-        selectContact(index);
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         submitDeleteContact();
     }
 
@@ -93,8 +90,8 @@ public class ContactHelper extends HelperBase{
         return findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = findElements(By.name("entry"));
 
         for (WebElement element: elements){
@@ -107,4 +104,5 @@ public class ContactHelper extends HelperBase{
 
         return contacts;
     }
+
 }
