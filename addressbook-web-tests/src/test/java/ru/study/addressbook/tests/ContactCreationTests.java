@@ -9,19 +9,30 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test
+    @Test(enabled = true)
     public void ContactCreationTests() throws InterruptedException {
-        List<ContactData> before = app.getContactHelper().getContactList();
-        ContactData contact = new ContactData("first name", "middle name", "last name", "nickname",
-                "title", "company", "1 1 1", "4950101010", "9273826001", "4950101010", "test@mail.ru",
-                "test2@gmail.com", "test10");
-        app.getContactHelper().createContact(contact);
-        app.getNavigationHelper().returnToHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().list();
+        ContactData contact = new ContactData()
+                .withFirstname("first name")
+                .withMiddlename("middle name")
+                .withLastname("last name")
+                .withNickname("nickname")
+                .withTitle("title")
+                .withCompany("company")
+                .withAddress("1 1 1")
+                .withHomePhone("4950101010")
+                .withMobilePhone("9273826001")
+                .withWorkPhone("4950101010")
+                .withEmail1("test@mail.ru")
+                .withEmail2("test2@gmail.com")
+                .withGroup("test10");
+        app.contact().create(contact);
+        app.goTo().homePage();
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size()+1);
 
         Comparator<? super ContactData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-        contact.setId(after.stream().max(byId).get().getId());
+        contact.withId(after.stream().max(byId).get().getId());
         before.add(contact);
         before.sort(byId);
         before.sort(byId);

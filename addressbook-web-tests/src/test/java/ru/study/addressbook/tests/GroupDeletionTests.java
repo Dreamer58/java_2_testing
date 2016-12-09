@@ -1,6 +1,7 @@
 package ru.study.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.GroupData;
 
@@ -8,21 +9,24 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
-    @Test
-    public void testGroupDeletion() throws InterruptedException {
-        app.getNavigationHelper().gotoGroupsPage();
-        if (!app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("test10", null, null));
+    @BeforeMethod
+    public void ensurePreconditions() throws InterruptedException {
+        app.goTo().groupPage();
+        if (app.group().list().size() == 0) {
+            app.group().create(new GroupData().withName("test10"));
         }
-        List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().deleteSelectedGroup();
-        app.getGroupHelper().returnToGroupPage();
+    }
 
-        List<GroupData> after = app.getGroupHelper().getGroupList();
-        Assert.assertEquals(after.size(), before.size()-1);
+    @Test(enabled = true)
+    public void testGroupDeletion() throws InterruptedException {
+        List<GroupData> before = app.group().list();
+        int index = before.size() - 1;
+        app.group().delete(index);
 
-        before.remove(before.size()-1);
+        List<GroupData> after = app.group().list();
+        Assert.assertEquals(after.size(), index);
+
+        before.remove(index);
         Assert.assertEquals(before, after);
     }
 }

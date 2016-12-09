@@ -1,9 +1,9 @@
 package ru.study.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
-import ru.study.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -11,20 +11,36 @@ import java.util.List;
  * Created by Dreamer on 07.12.2016.
  */
 public class ContactDeletionTests extends TestBase {
-    @Test
-    public void testContactDeletion() throws InterruptedException {
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("first name", "middle name", "last name", "nickname",
-                    "title", "company", "1 1 1", "4950101010", "9273826001", "4950101010", "test@mail.ru",
-                    "test2@gmail.com", "test10"));
+    @BeforeMethod
+    public void ensurePreconditions() throws InterruptedException {
+        if (app.contact().list().size() == 0) {
+            ContactData contact = new ContactData()
+                    .withFirstname("first name")
+                    .withMiddlename("middle name")
+                    .withLastname("last name")
+                    .withNickname("nickname")
+                    .withTitle("title")
+                    .withCompany("company")
+                    .withAddress("1 1 1")
+                    .withHomePhone("4950101010")
+                    .withMobilePhone("9273826001")
+                    .withWorkPhone("4950101010")
+                    .withEmail1("test@mail.ru")
+                    .withEmail2("test2@gmail.com")
+                    .withGroup("test10");
+            app.contact().create(contact);
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().submitDeleteContact();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size()-1);
+    }
 
-        before.remove(before.size()-1);
+    @Test(enabled = true)
+    public void testContactDeletion() throws InterruptedException {
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
+        app.contact().delete(index);
+        List<ContactData> after = app.contact().list();
+        Assert.assertEquals(after.size(), index);
+
+        before.remove(index);
         Assert.assertEquals(before, after);
     }
 }

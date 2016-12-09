@@ -16,7 +16,7 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
-    public void gotoGroupsPage() throws InterruptedException {
+    public void groupPage() throws InterruptedException {
         if (isElementPresent(By.tagName("h1"))
                 && findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))){
@@ -25,7 +25,7 @@ public class NavigationHelper extends HelperBase{
         click(By.linkText("groups"));
     }
 
-    public void returnToHomePage() {
+    public void homePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
