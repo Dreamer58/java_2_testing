@@ -4,8 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
+import ru.study.addressbook.model.Contacts;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by Dreamer on 07.12.2016.
@@ -34,7 +38,7 @@ public class ContactModificationTests extends TestBase {
 
     @Test(enabled = true)
     public void testContactModification() throws InterruptedException {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData contact = new ContactData()
                 .withFirstname("first name")
                 .withMiddlename("middle2 name")
@@ -49,9 +53,8 @@ public class ContactModificationTests extends TestBase {
                 .withEmail1("test_1@mail.ru")
                 .withEmail2("test2_1@gmail.com");
         app.contact().modifyContact(contact);
-        Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size());
-
-        Assert.assertEquals(before, after);
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size()));
+        assertThat(after, equalTo(before));
     }
 }
