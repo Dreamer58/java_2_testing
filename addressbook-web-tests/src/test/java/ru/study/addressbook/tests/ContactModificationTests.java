@@ -53,8 +53,8 @@ public class ContactModificationTests extends TestBase {
                 .withEmail1("test_1@mail.ru")
                 .withEmail2("test2_1@gmail.com");
         app.contact().modifyContact(contact);
+        assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size()));
         assertThat(after, equalTo(before));
     }
 }

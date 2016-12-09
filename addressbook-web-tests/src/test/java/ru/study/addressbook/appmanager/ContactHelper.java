@@ -90,7 +90,7 @@ public class ContactHelper extends HelperBase{
         contactCash = null;
     }
 
-    public int getContactCount() {
+    public int count() {
         return findElements(By.name("selected[]")).size();
     }
 
