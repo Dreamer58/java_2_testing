@@ -8,14 +8,13 @@ import org.testng.Assert;
 import ru.study.addressbook.model.ContactData;
 import ru.study.addressbook.model.Contacts;
 
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Dreamer on 27.10.2016.
  */
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -37,9 +36,9 @@ public class ContactHelper extends HelperBase{
         type(By.name("work"), contactData.getWorkPhone());
         type(By.name("email"), contactData.getEmail1());
         type(By.name("email2"), contactData.getEmail2());
-        type(By.name("email3"),contactData.getEmail3());
+        type(By.name("email3"), contactData.getEmail3());
 
-        if (creation){
+        if (creation) {
             new Select(findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -105,7 +104,7 @@ public class ContactHelper extends HelperBase{
         contactCash = new Contacts();
         List<WebElement> rows = findElements(By.name("entry"));
 
-        for (WebElement row: rows){
+        for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
             String lastName = cells.get(1).getText();
@@ -114,12 +113,12 @@ public class ContactHelper extends HelperBase{
             String allPhones = cells.get(5).getText();
             String address = cells.get(3).getText();
             contactCash.add(new ContactData()
-                            .withId(id)
-                            .withFirstname(firstName)
-                            .withLastname(lastName)
-                            .withAllEmails(allEmails)
-                            .withAllPhones(allPhones)
-                            .withAddress(address));
+                    .withId(id)
+                    .withFirstname(firstName)
+                    .withLastname(lastName)
+                    .withAllEmails(allEmails)
+                    .withAllPhones(allPhones)
+                    .withAddress(address));
         }
 
         return new Contacts(contactCash);
@@ -140,5 +139,28 @@ public class ContactHelper extends HelperBase{
 
         wd.navigate().back();
         return contactFromEditForm;
+    }
+
+    public ContactData infoFromDetailsForm(ContactData contact) {
+        viewDetailsContactById(contact.getId());
+        WebElement details = findElement(By.id("content"));
+        List<String> allDetails = Arrays.asList(details.getText().split("\n"));
+
+        ContactData contactFromDetailsForm = new ContactData()
+                .withFirstAndLastname(allDetails.get(0))
+                .withAddress(allDetails.get(1))
+                .withHomePhone(allDetails.get(3))
+                .withMobilePhone(allDetails.get(4))
+                .withWorkPhone(allDetails.get(5))
+                .withEmail1(allDetails.get(7))
+                .withEmail2(allDetails.get(8))
+                .withEmail3(allDetails.get(9));
+
+        wd.navigate().back();
+        return contactFromDetailsForm;
+    }
+
+    private void viewDetailsContactById(int id) {
+        click(By.xpath("//tr[.//input[@value='" + id + "']]/td[7]/a"));
     }
 }

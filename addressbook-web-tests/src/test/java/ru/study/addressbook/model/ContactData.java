@@ -5,6 +5,8 @@ public class ContactData {
     private String firstname;
     private String middlename;
     private String lastname;
+    private String firstandlastname;
+
     private String nickname;
     private String title;
     private String company;
@@ -52,6 +54,15 @@ public class ContactData {
 
     public ContactData withLastname(String lastname) {
         this.lastname = lastname;
+        return this;
+    }
+
+    public String getLastandfirstname() {
+        return firstandlastname;
+    }
+
+    public ContactData withFirstAndLastname(String firstandlastname) {
+        this.firstandlastname = firstandlastname;
         return this;
     }
 

@@ -14,6 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Created by Dreamer on 09.12.2016.
  */
 public class ContactInfoTests extends TestBase {
+    private ContactData contact;
+
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
         if (app.contact().all().size() == 0) {
@@ -21,31 +23,40 @@ public class ContactInfoTests extends TestBase {
                     .withFirstname("first name")
                     .withMiddlename("middle name")
                     .withLastname("last name")
-                    .withNickname("nickname")
-                    .withTitle("title")
-                    .withCompany("company")
                     .withAddress("1 1 1")
                     .withHomePhone("4950101010")
                     .withMobilePhone("9273826001")
                     .withWorkPhone("4950101010")
                     .withEmail1("test@mail.ru")
                     .withEmail2("test2@gmail.com")
-                    .withEmail3("test3@list.ru")
-                    .withGroup("test10");
+                    .withEmail3("test3@list.ru");
             app.contact().create(contact);
         }
+        app.goTo().homePageFromAnotherPage();
+        contact = app.contact().all().iterator().next();
     }
 
     @Test(enabled = true)
-    public void testContactInfo() {
-        app.goTo().homePageFromAnotherPage();
-        ContactData contact = app.contact().all().iterator().next();
+    public void testContactInfoOnMainPageWithEditPage() {
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         assertThat(contact.getAllPhones(),equalTo(mergePhones(contactInfoFromEditForm)));
         assertThat(contact.getAllEmails(),equalTo(mergeEmails(contactInfoFromEditForm)));
         assertThat(contact.getAddress(),equalTo(contactInfoFromEditForm.getAddress()));
     }
+
+    @Test(enabled = true)
+    public void testContactInfoOnMainPageWithDetailsPage() {
+        ContactData contactInfoFromDetailsForm = app.contact().infoFromDetailsForm(contact);
+
+        assertThat(contact.getFirstname() + " " + contact.getLastname(),
+                equalTo(contactInfoFromDetailsForm.getLastandfirstname()));
+        assertThat(contact.getAllPhones(),equalTo(mergePhones(contactInfoFromDetailsForm)));
+        assertThat(contact.getAllEmails(),equalTo(mergeEmails(contactInfoFromDetailsForm)));
+        assertThat(contact.getAddress(),equalTo(contactInfoFromDetailsForm.getAddress()));
+
+    }
+
 
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
@@ -61,7 +72,7 @@ public class ContactInfoTests extends TestBase {
     }
 
     public static String cleaned(String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+        return phone.replaceAll("\\s", "").replaceAll("[-()HMW:]", "");
     }
 
 }
