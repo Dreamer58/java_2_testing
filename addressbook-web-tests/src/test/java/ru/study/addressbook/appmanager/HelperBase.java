@@ -3,6 +3,7 @@ package ru.study.addressbook.appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class HelperBase {
                 element.clear();
                 element.sendKeys(text);
             }
+        }
+    }
+
+    protected void attach(By locator, File file) {
+        if (file != null) {
+            findElement(locator).sendKeys(file.getAbsolutePath());
         }
     }
 

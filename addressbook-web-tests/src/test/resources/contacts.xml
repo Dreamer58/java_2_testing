@@ -1,0 +1,62 @@
+<list>
+  <contact>
+    <firstname>first name0</firstname>
+    <middlename>middle name0</middlename>
+    <lastname>last name0</lastname>
+    <nickname>nickname0</nickname>
+    <title>title0</title>
+    <company>company0</company>
+    <address>address0</address>
+    <homePhone>4950000001</homePhone>
+    <mobilePhone>9270126354</mobilePhone>
+    <workPhone>4951212121</workPhone>
+    <email1>test0@mail.ru</email1>
+    <email2>test0@gmail.com</email2>
+    <email3>test0@list.ru</email3>
+  </contact>
+  <contact>
+    <firstname>first name1</firstname>
+    <middlename>middle name1</middlename>
+    <lastname>last name1</lastname>
+    <nickname>nickname1</nickname>
+    <title>title1</title>
+    <company>company1</company>
+    <address>address1</address>
+    <homePhone>4950000001</homePhone>
+    <mobilePhone>9270126354</mobilePhone>
+    <workPhone>4951212121</workPhone>
+    <email1>test1@mail.ru</email1>
+    <email2>test1@gmail.com</email2>
+    <email3>test1@list.ru</email3>
+  </contact>
+  <contact>
+    <firstname>first name2</firstname>
+    <middlename>middle name2</middlename>
+    <lastname>last name2</lastname>
+    <nickname>nickname2</nickname>
+    <title>title2</title>
+    <company>company2</company>
+    <address>address2</address>
+    <homePhone>4950000001</homePhone>
+    <mobilePhone>9270126354</mobilePhone>
+    <workPhone>4951212121</workPhone>
+    <email1>test2@mail.ru</email1>
+    <email2>test2@gmail.com</email2>
+    <email3>test2@list.ru</email3>
+  </contact>
+  <contact>
+    <firstname>first name3</firstname>
+    <middlename>middle name3</middlename>
+    <lastname>last name3</lastname>
+    <nickname>nickname3</nickname>
+    <title>title3</title>
+    <company>company3</company>
+    <address>address3</address>
+    <homePhone>4950000001</homePhone>
+    <mobilePhone>9270126354</mobilePhone>
+    <workPhone>4951212121</workPhone>
+    <email1>test3@mail.ru</email1>
+    <email2>test3@gmail.com</email2>
+    <email3>test3@list.ru</email3>
+  </contact>
+</list>

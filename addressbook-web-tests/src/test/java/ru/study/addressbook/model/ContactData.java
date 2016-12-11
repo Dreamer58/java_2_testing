@@ -1,6 +1,13 @@
 package ru.study.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.io.File;
+
+@XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
     private int id = 0;
     private String firstname;
     private String middlename;
@@ -20,6 +27,8 @@ public class ContactData {
     private String email3;
     private String allEmails;
     private String group;
+
+    private File photo;
 
     public int getId() {
         return id;
@@ -180,6 +189,15 @@ public class ContactData {
 
     public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
