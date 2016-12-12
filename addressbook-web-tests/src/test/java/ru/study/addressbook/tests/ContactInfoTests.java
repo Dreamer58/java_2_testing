@@ -45,7 +45,7 @@ public class ContactInfoTests extends TestBase {
         assertThat(contact.getAddress(),equalTo(contactInfoFromEditForm.getAddress()));
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void testContactInfoOnMainPageWithDetailsPage() {
         ContactData contactInfoFromDetailsForm = app.contact().infoFromDetailsForm(contact);
 
