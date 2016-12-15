@@ -14,3 +14,19 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 *.tx
+.idea/libraries/Gradle__org_jboss_logging_jboss_logging_3_3_0_Final.xml
+.idea/libraries/Gradle__antlr_antlr_2_7_7.xml
+.idea/libraries/Gradle__com_fasterxml_classmate_1_3_0.xml
+.idea/libraries/Gradle__dom4j_dom4j_1_6_1.xml
+.idea/libraries/Gradle__javax_annotation_jsr250_api_1_0.xml
+.idea/libraries/Gradle__javax_enterprise_cdi_api_1_1.xml
+.idea/libraries/Gradle__javax_el_el_api_2_2.xml
+.idea/libraries/Gradle__javax_inject_javax_inject_1.xml
+.idea/libraries/Gradle__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml
+.idea/libraries/Gradle__mysql_mysql_connector_java_6_0_5.xml
+.idea/libraries/Gradle__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml
+.idea/libraries/Gradle__org_hibernate_hibernate_core_5_2_5_Final.xml
+.idea/libraries/Gradle__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml
+.idea/libraries/Gradle__org_javassist_javassist_3_20_0_GA.xml
+.idea/libraries/Gradle__org_jboss_jandex_2_0_3_Final.xml
+.idea/libraries/Gradle__org_jboss_spec_javax_interceptor_jboss_interceptors_api_1_1_spec_1_0_0_Beta1.xml

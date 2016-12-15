@@ -1,6 +1,7 @@
 package ru.study.addressbook.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.GroupData;
@@ -33,25 +34,28 @@ public class GroupCreationTests extends TestBase {
         return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
+    @BeforeMethod
+    public void ensurePreconditions() throws InterruptedException {
+        app.goTo().groupPage();
+    }
+
     @Test(enabled = true, dataProvider = "validGroups")
     public void testGroupCreation(GroupData group) throws InterruptedException {
-        app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()+1));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
     @Test(enabled = true)
     public void testBadGroupCreation() throws InterruptedException {
-        app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("test'");
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 

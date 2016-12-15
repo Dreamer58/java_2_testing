@@ -40,11 +40,11 @@ public class ContactCreationTests extends TestBase {
     @Test(enabled = true, dataProvider = "validContacts")
     public void ContactCreationTests(ContactData contact) throws InterruptedException {
         app.goTo().homePageFromAnotherPage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contact);
         app.goTo().homePageFromAlert();;
         assertThat(app.contact().count(), equalTo(before.size()+1));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
