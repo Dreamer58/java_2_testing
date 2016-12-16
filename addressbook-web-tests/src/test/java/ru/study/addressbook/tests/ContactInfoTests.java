@@ -18,7 +18,7 @@ public class ContactInfoTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() throws InterruptedException {
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             ContactData contact = new ContactData()
                     .withFirstname("first name")
                     .withMiddlename("middle name")
@@ -33,7 +33,7 @@ public class ContactInfoTests extends TestBase {
             app.contact().create(contact);
         }
         app.goTo().homePageFromAnotherPage();
-        contact = app.contact().all().iterator().next();
+        contact = app.db().contacts().iterator().next();
     }
 
     @Test(enabled = true)

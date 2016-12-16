@@ -33,7 +33,7 @@ public class HbConnectionTest {
             StandardServiceRegistryBuilder.destroy(registry);
         }
     }
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void testHbConnection() {
         Session session = sessionFactory.openSession();
 //        session.beginTransaction();
@@ -47,10 +47,12 @@ public class HbConnectionTest {
 //        session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> resultContacts = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
-        for ( ContactData contact : resultContacts ) {
-            System.out.println(contact);
-        }
         session.getTransaction().commit();
         session.close();
+
+        for ( ContactData contact : resultContacts ) {
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+        }
     }
 }

@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -56,8 +58,11 @@ public class ContactData {
     @Transient
     private String allEmails;
 
-    @Transient
-    private String group;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Type(type = "text")
     private String photo;
@@ -215,12 +220,12 @@ public class ContactData {
         return this;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
         return this;
     }
 
@@ -251,7 +256,6 @@ public class ContactData {
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
-                ", group='" + group + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
     }
@@ -276,8 +280,7 @@ public class ContactData {
         if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
         if (email1 != null ? !email1.equals(that.email1) : that.email1 != null) return false;
         if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
-        if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-        return group != null ? group.equals(that.group) : that.group == null;
+        return email3 != null ? email3.equals(that.email3) : that.email3 == null;
 
     }
 
@@ -297,7 +300,6 @@ public class ContactData {
         result = 31 * result + (email1 != null ? email1.hashCode() : 0);
         result = 31 * result + (email2 != null ? email2.hashCode() : 0);
         result = 31 * result + (email3 != null ? email3.hashCode() : 0);
-        result = 31 * result + (group != null ? group.hashCode() : 0);
         return result;
     }
 }

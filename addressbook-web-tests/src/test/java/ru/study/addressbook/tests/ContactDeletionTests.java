@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 import ru.study.addressbook.model.Contacts;
+import ru.study.addressbook.model.Groups;
 
 import java.util.Set;
 
@@ -19,6 +20,7 @@ public class ContactDeletionTests extends TestBase {
     public void ensurePreconditions() throws InterruptedException {
         app.goTo().homePageFromAnotherPage();
         if (app.db().contacts().size() == 0) {
+            Groups groups = app.db().groups();
             ContactData contact = new ContactData()
                     .withFirstname("first name")
                     .withMiddlename("middle name")
@@ -33,7 +35,7 @@ public class ContactDeletionTests extends TestBase {
                     .withEmail1("test@mail.ru")
                     .withEmail2("test2@gmail.com")
                     .withEmail3("test3@list.ru")
-                    .withGroup("test10");
+                    .inGroup(groups.iterator().next());
             app.contact().create(contact);
         }
     }

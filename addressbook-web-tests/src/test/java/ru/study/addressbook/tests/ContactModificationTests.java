@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.study.addressbook.model.ContactData;
 import ru.study.addressbook.model.Contacts;
+import ru.study.addressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,6 +17,7 @@ public class ContactModificationTests extends TestBase {
     public void ensurePreconditions() throws InterruptedException {
         app.goTo().homePageFromAnotherPage();
         if (app.db().contacts().size() == 0) {
+            Groups groups = app.db().groups();
             ContactData contact = new ContactData()
                     .withFirstname("first name")
                     .withMiddlename("middle name")
@@ -29,7 +31,7 @@ public class ContactModificationTests extends TestBase {
                     .withWorkPhone("4950101010")
                     .withEmail1("test@mail.ru")
                     .withEmail2("test2@gmail.com")
-                    .withGroup("test10");
+                    .inGroup(groups.iterator().next());
             app.contact().create(contact);
         }
     }
@@ -38,6 +40,7 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() throws InterruptedException {
         Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
+        Groups groups = app.db().groups();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
                 .withFirstname("first name")
@@ -52,7 +55,8 @@ public class ContactModificationTests extends TestBase {
                 .withWorkPhone("4950101012")
                 .withEmail1("test_1@mail.ru")
                 .withEmail2("test2_1@gmail.com")
-                .withEmail3("test2@list.ru");
+                .withEmail3("test2@list.ru")
+                .inGroup(groups.iterator().next());
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.db().contacts();
