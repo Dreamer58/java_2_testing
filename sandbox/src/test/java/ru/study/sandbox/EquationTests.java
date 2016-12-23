@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class EquationTests {
     @Test
     public void tets0(){
-        Equation e = new Equation(1, 1, 1);
+        Equation e = new Equation(1, 1, 0);
         Assert.assertEquals(e.rootNumber(), 0);
     }
 
