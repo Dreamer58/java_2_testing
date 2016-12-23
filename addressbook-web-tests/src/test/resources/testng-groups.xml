@@ -5,7 +5,7 @@
         <classes>
             <class name="ru.study.addressbook.tests.GroupCreationTests" />
             <!--<class name="ru.study.addressbook.tests.GroupModificationTests" />-->
-            <class name="ru.study.addressbook.tests.GroupDeletionTests" />
+            <!--<class name="ru.study.addressbook.tests.GroupDeletionTests" />-->
         </classes>
     </test>
 </suite>
